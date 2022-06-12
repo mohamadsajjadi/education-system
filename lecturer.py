@@ -36,5 +36,8 @@ class Lecturer:
 
     # for see all courses of desired lecturer
     def show_all_related_course_to_lecturer(self):
-        for course in self.courses:
-            print(course)
+        if len(self.courses) != 0:
+            for course in self.courses:
+                print(course)
+        else:
+            print(r"This lecturer doesn't have any courses.")

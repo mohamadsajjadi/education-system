@@ -13,3 +13,8 @@ class Student:
             if student.studentID == student_id:
                 return True
         return False
+
+    @staticmethod
+    def show_all_student():
+        for student in Student.all_student:
+            print(student.studentID)

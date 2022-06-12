@@ -4,6 +4,8 @@ class Course:
     def __init__(self, courseID, unit):
         self.courseID = courseID
         self.unit = unit
+        self.capacity = 15
+        self.number_of_registerations = 0
         Course.all_course.append(self)
 
     @staticmethod

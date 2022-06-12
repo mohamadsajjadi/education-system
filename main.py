@@ -44,6 +44,26 @@ while True:
             course = Course(courseID=course_id, unit=course_unit)
             print(f'This course with courseID: {course_id} registered successfully')
 
+    elif command[1] == 'register':
+        try:
+            student_id = int(command[0])
+            course_id = int(command[2])
+            student = Student.get_student(student_id)
+            course = Course.get_course(course_id)
+            student.register_course(course)
+        except Exception as e:
+            print(e)
+
+    elif command[0] == 'W':
+        try:
+            course_id = int(command[1])
+            student_id = int(command[2])
+            course = Course.get_course(course_id)
+            student = Student.get_student(student_id)
+            student.delete_course(course)
+        except Exception as e:
+            print(e)
+
     elif command[0] == 'showAllStudent':
         Student.show_all_student()
 
@@ -61,3 +81,8 @@ while True:
             lecturer.show_all_related_course_to_lecturer()
         except:
             print("This lecturer doesn't exist!")
+
+    elif command[0] == 'showStudentCourse':
+        student_id = int(command[1])
+        student = Student.get_student(student_id)
+        student.show_student_course()

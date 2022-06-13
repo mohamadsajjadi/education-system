@@ -187,7 +187,9 @@ while True:
         else:
             print("student doesn't exist!")
 
-    elif command[0] == "showTopRanks":
+    elif command[0] == "showTopRanks" and command[1] != '-all':
         number = int(command[1])
         Student.show_top_rank(number)
 
+    elif command[0] == "showTopRanks" and command[1] == '-all':
+        Student.show_all_rank()

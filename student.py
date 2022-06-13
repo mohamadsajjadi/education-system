@@ -81,3 +81,11 @@ class Student:
                 result_dict[student.studentID] = float(Student.calculate_average(student))
                 result_dict = dict(sorted(result_dict.items(), key=lambda x: (x[1], x[0]), reverse=True))
             print(list(result_dict.keys())[0:number])
+
+    @staticmethod
+    def show_all_rank():
+        result_dict = dict()
+        for student in Student.all_student:
+            result_dict[student.studentID] = float(Student.calculate_average(student))
+            result_dict = dict(sorted(result_dict.items(), key=lambda x: (x[1], x[0]), reverse=True))
+        print(list(result_dict.keys()))

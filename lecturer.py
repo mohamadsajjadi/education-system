@@ -64,13 +64,12 @@ class Lecturer:
                 student = Student.get_student(int(item[0]))
                 score = float(item[1])
                 student.course_score.update({course: score})
+                course.students.update({student: score})
 
     def set_same_mark_for_all(self, course, mark):
-        # if course not in self.courses:
-        #     print("this course don't belong to this lecturer")
         for student in Student.all_student:
             if course in student.courses:
                 student.course_score.update({course: mark})
+                course.students.update({student: mark})
             else:
                 pass
-                # print(f"this course don't belong to this student with ID={student.studentID}")

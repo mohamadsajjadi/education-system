@@ -6,7 +6,7 @@ class Course:
         self.unit = unit
         self.capacity = 15
         self.number_of_registerations = 0
-        self.students = list()
+        self.students = dict()  # save student_ID for sort by student_ID
         Course.all_course.append(self)
 
     @staticmethod
@@ -30,4 +30,16 @@ class Course:
             print(course.courseID)
 
     def show_student_desired_course(self):
-        print(sorted(self.students))
+        result = list()
+        for key in self.students.keys():
+            result.append(key.studentID)
+        print(sorted(result))
+
+    def average_course(self):
+        if len(self.students) == 0:
+            print("this course doesn't have any student!")
+        else:
+            sum_mark = 0
+            for student, mark in self.students.items():
+                sum_mark += mark
+            print(sum_mark / (len(self.students)))

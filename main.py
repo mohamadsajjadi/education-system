@@ -136,7 +136,7 @@ while True:
 
     elif command[0] == 'showAllStudent' and command[1] == 'course':  # student each course
         course_id = int(command[2])
-        if Course.get_course(course_id):
+        if Course.check_course_exist(course_id):
             course = Course.get_course(course_id)
         course.show_student_desired_course()
 
@@ -160,3 +160,9 @@ while True:
         student_id = int(command[1])
         student = Student.get_student(student_id)
         student.show_student_courses_and_their_scores()
+
+    elif command[0] == 'showAverage' and command[1] == 'course':
+        course_id = int(command[2])
+        if Course.check_course_exist(course_id):
+            course = Course.get_course(course_id)
+        course.average_course()

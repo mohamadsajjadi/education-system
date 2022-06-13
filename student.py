@@ -27,6 +27,7 @@ class Student:
             self.unit += course.unit
             course.capacity -= 1
             course.number_of_registerations += 1
+            course.students.append(self.studentID)
             print('you register in this course successfully!')
         else:
             print("you have this course idiot!")
@@ -40,6 +41,7 @@ class Student:
                 self.number_of_delete_unit -= course.unit
                 course.capacity += 1
                 course.number_of_registerations -= 1
+                course.student.remove(self.studentID)
                 print(f"your course with ID:{course.courseID} deleted successfully!")
         else:
             print("Sorry! you can't delete any courses from now on!")

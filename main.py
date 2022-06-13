@@ -131,8 +131,15 @@ while True:
             lecturer.set_same_mark_for_all(course, mark)
 
 
-    elif command[0] == 'showAllStudent':
+    elif command[0] == 'showAllStudent' and len(command) == 1:
         Student.show_all_student()
+
+    elif command[0] == 'showAllStudent' and command[1] == 'course':  # student each course
+        course_id = int(command[2])
+        if Course.get_course(course_id):
+            course = Course.get_course(course_id)
+        course.show_student_desired_course()
+
 
     elif command[0] == 'showAllLecturer':
         Lecturer.show_all_lecturer()

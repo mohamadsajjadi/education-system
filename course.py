@@ -6,6 +6,7 @@ class Course:
         self.unit = unit
         self.capacity = 15
         self.number_of_registerations = 0
+        self.students = list()
         Course.all_course.append(self)
 
     @staticmethod
@@ -27,3 +28,6 @@ class Course:
     def show_all_course():
         for course in Course.all_course:
             print(course.courseID)
+
+    def show_student_desired_course(self):
+        print(sorted(self.students))

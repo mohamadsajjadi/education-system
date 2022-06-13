@@ -1,4 +1,5 @@
 from course import Course
+from student import Student
 
 
 class Lecturer:
@@ -40,7 +41,7 @@ class Lecturer:
             print(lecturer.lecturerID)
 
     @staticmethod
-    def another_lecturer_present_course(course):
+    def check_another_lecturer_present_course(course):
         for lecturer in Lecturer.all_lecturer:
             if course in lecturer.courses:
                 print('This course present by another lecturer, please in another command Enter the new course!')
@@ -54,3 +55,22 @@ class Lecturer:
                 print(course)
         else:
             print(r"This lecturer doesn't have any courses.")
+
+    def set_different_mark(self, course, *score_list):
+        if course not in self.courses:
+            print("this course don't belong to this lecturer")
+        else:
+            for item in score_list:
+                student = Student.get_student(int(item[0]))
+                score = float(item[1])
+                student.course_score.update({course: score})
+
+    def set_same_mark_for_all(self, course, mark):
+        # if course not in self.courses:
+        #     print("this course don't belong to this lecturer")
+        for student in Student.all_student:
+            if course in student.courses:
+                student.course_score.update({course: mark})
+            else:
+                pass
+                # print(f"this course don't belong to this student with ID={student.studentID}")

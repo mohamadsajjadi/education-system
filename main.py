@@ -25,7 +25,7 @@ while True:
                 for course_id in list_of_input_courses:
                     course = Course.get_course(int(course_id))
                     if course is not None:
-                        if not Lecturer.another_lecturer_present_course(course):
+                        if not Lecturer.check_another_lecturer_present_course(course):
                             valid_course.append(course)
                     else:
                         print("This course doesn't exist")
@@ -35,6 +35,7 @@ while True:
                 else:
                     lecturer = Lecturer(lecturer_id, *valid_course)
                     print(f"Lecturer with lecturerID: {lecturer_id} registered successfully!")
+
     elif command[0] == 'addCourse':
         course_id = int(command[1])
         course_unit = int(command[2])
@@ -75,6 +76,61 @@ while True:
         except Exception as e:
             print(e)
 
+    elif command[1] == 'mark' and command[4] != '-all':
+        # course = None
+        # lecturer = None
+        lecturer_id = int(command[0])
+        course_id = int(command[2])
+        student_and_mark = command[3:]
+        required_list = list()
+
+        if Course.check_course_exist(course_id):
+            course = Course.get_course(course_id)
+        else:
+            print("This course soesn't exist")
+
+        if Lecturer.check_lecturer_exist(lecturer_id):
+            lecturer = Lecturer.get_lecturer(lecturer_id)
+        else:
+            print("This lecturer doesn't exist")
+
+        # split 2 by 2 of studentsID and their scores
+        for i in range(0, len(student_and_mark), 2):
+            required_list.append(student_and_mark[i:i + 2])
+
+        # valid student that if they exist and have this course or not!
+        valid_student = list()
+        for item in required_list:
+            student_id = int(item[0])
+            if Student.check_student_exist(student_id):
+                student = Student.get_student(student_id)
+                if course in student.courses:  # have or don't have this course
+                    valid_student.append(item)
+                else:
+                    print(f"this course don't belong to student with ID={student_id}")
+            else:
+                print(f"this student with ID={student_id} doesn't exist!")
+        lecturer.set_different_mark(course, *valid_student)
+
+    elif command[1] == 'mark' and command[4] == '-all':
+        lecturer_id = int(command[0])
+        course_id = int(command[2])
+        mark = float(command[3])
+
+        if Course.check_course_exist(course_id):
+            course = Course.get_course(course_id)
+        else:
+            print("This course soesn't exist")
+
+        if Lecturer.check_lecturer_exist(lecturer_id):
+            lecturer = Lecturer.get_lecturer(lecturer_id)
+        else:
+            print("This lecturer doesn't exist")
+
+        if not lecturer.check_another_lecturer_present_course(course):
+            lecturer.set_same_mark_for_all(course, mark)
+
+
     elif command[0] == 'showAllStudent':
         Student.show_all_student()
 
@@ -96,4 +152,4 @@ while True:
     elif command[0] == 'showStudentCourse':
         student_id = int(command[1])
         student = Student.get_student(student_id)
-        student.show_student_course()
+        student.show_student_courses_and_their_scores()

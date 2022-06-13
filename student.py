@@ -10,6 +10,7 @@ class Student:
         self.number_of_delete_unit = 3
         self.boolean_delete_course = True
         self.courses = list()
+        self.course_score = dict()  # useful for set scoure each course
         Student.all_student.append(self)
 
     @staticmethod
@@ -20,19 +21,21 @@ class Student:
         return None
 
     def register_course(self, course):
-        # for courses in Course.all_course:
-        #     if course in courses:  # course exist or not
         if not course in self.courses:  # don't repeat
             self.courses.append(course)
+            self.course_score[course] = 0
             self.unit += course.unit
             course.capacity -= 1
             course.number_of_registerations += 1
             print('you register in this course successfully!')
+        else:
+            print("you have this course idiot!")
 
     def delete_course(self, course):
         if self.number_of_delete_unit >= course.unit and self.boolean_delete_course == True:
             if course in self.courses:
                 self.courses.remove(course)
+                del self.course_score[course]
                 self.unit -= course.unit
                 self.number_of_delete_unit -= course.unit
                 course.capacity += 1
@@ -55,6 +58,5 @@ class Student:
         for student in Student.all_student:
             print(student.studentID)
 
-    def show_student_course(self):
-        for course in self.courses:
-            print(course.courseID)
+    def show_student_courses_and_their_scores(self):
+        print(self.course_score)

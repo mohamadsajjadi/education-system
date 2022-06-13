@@ -1,3 +1,6 @@
+from course import Course
+
+
 class Lecturer:
     all_lecturer = []
 
@@ -12,6 +15,16 @@ class Lecturer:
             if lecturer.lecturerID == lecturer_id:
                 return lecturer
         return None
+
+    def increase_capacity_of_course(self, course, number):
+        if Course.check_course_exist(course.courseID) is not None:
+            if course in self.courses:  # This course should belong to this teacher
+                course.capacity += number
+                print(course.capacity)
+            else:
+                print("This course don't belong to this lecturer")
+        else:
+            print("This course doesn't exist!")
 
     # To recognize lecturer exist or not
     @staticmethod

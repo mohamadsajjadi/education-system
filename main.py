@@ -64,6 +64,17 @@ while True:
         except Exception as e:
             print(e)
 
+    elif command[1] == 'capacitate':
+        try:
+            lecturer_id = int(command[0])
+            course_id = int(command[2])
+            number_of_increase = int(command[3])
+            lecturer = Lecturer.get_lecturer(lecturer_id)
+            course = Course.get_course(course_id)
+            lecturer.increase_capacity_of_course(course, number_of_increase)
+        except Exception as e:
+            print(e)
+
     elif command[0] == 'showAllStudent':
         Student.show_all_student()
 

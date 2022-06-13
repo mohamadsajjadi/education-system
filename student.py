@@ -10,7 +10,7 @@ class Student:
         self.number_of_delete_unit = 3
         self.boolean_delete_course = True
         self.courses = list()
-        self.course_score = dict()  # useful for set scoure each course
+        self.course_score = dict()  # useful for set score each course and calculate average
         Student.all_student.append(self)
 
     @staticmethod
@@ -62,3 +62,11 @@ class Student:
 
     def show_student_courses_and_their_scores(self):
         print(self.course_score)
+
+    def show_average(self):
+        sum_unit = 0
+        sum_score = 0
+        for course, score in self.course_score.items():
+            sum_unit += course.unit
+            sum_score += (score * course.unit)
+        print("{:.2f}".format(sum_score / sum_unit))

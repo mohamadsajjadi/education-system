@@ -178,3 +178,11 @@ while True:
             course.average_student_of_course()
         else:
             print("course doesn't exist!")
+
+    elif command[0] == 'showAverage':
+        student_id = int(command[1])
+        if Student.check_student_exist(student_id):
+            student = Student.get_student(student_id)
+            student.show_average()
+        else:
+            print("student doesn't exist!")

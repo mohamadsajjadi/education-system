@@ -63,10 +63,21 @@ class Student:
     def show_student_courses_and_their_scores(self):
         print(self.course_score)
 
-    def show_average(self):
+    def calculate_average(self):
         sum_unit = 0
         sum_score = 0
         for course, score in self.course_score.items():
             sum_unit += course.unit
             sum_score += (score * course.unit)
-        print("{:.2f}".format(sum_score / sum_unit))
+        return "{:.2f}".format(sum_score / sum_unit)
+
+    @staticmethod
+    def show_top_rank(number):
+        if number > len(Student.all_student):
+            print("invalid number")
+        else:
+            result_dict = dict()
+            for student in Student.all_student:
+                result_dict[student.studentID] = float(Student.calculate_average(student))
+                result_dict = dict(sorted(result_dict.items(), key=lambda x: (x[1], x[0]), reverse=True))
+            print(list(result_dict.keys())[0:number])

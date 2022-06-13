@@ -183,6 +183,11 @@ while True:
         student_id = int(command[1])
         if Student.check_student_exist(student_id):
             student = Student.get_student(student_id)
-            student.show_average()
+            student.calculate_average()
         else:
             print("student doesn't exist!")
+
+    elif command[0] == "showTopRanks":
+        number = int(command[1])
+        Student.show_top_rank(number)
+

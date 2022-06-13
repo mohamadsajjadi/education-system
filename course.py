@@ -6,7 +6,7 @@ class Course:
         self.unit = unit
         self.capacity = 15
         self.number_of_registerations = 0
-        self.students = dict()  # save student_ID for sort by student_ID
+        self.students = dict()  # for student object and his score
         Course.all_course.append(self)
 
     @staticmethod
@@ -43,3 +43,10 @@ class Course:
             for student, mark in self.students.items():
                 sum_mark += mark
             print(sum_mark / (len(self.students)))
+
+    def average_student_of_course(self):
+        result_dict = dict()
+        for student, value in self.students.items():
+            result_dict[student.studentID] = value
+        result_dict = dict(sorted(result_dict.items(), key=lambda x: (x[1], x[0]), reverse=True))
+        print(list(result_dict.keys())[0:3])

@@ -138,7 +138,9 @@ while True:
         course_id = int(command[2])
         if Course.check_course_exist(course_id):
             course = Course.get_course(course_id)
-        course.show_student_desired_course()
+            course.show_student_desired_course()
+        else:
+            print("course doesn't exist!")
 
 
     elif command[0] == 'showAllLecturer':
@@ -165,4 +167,14 @@ while True:
         course_id = int(command[2])
         if Course.check_course_exist(course_id):
             course = Course.get_course(course_id)
-        course.average_course()
+            course.average_course()
+        else:
+            print("course doesn't exist!")
+
+    elif command[0] == 'showRank':
+        course_id = int(command[1])
+        if Course.check_course_exist(course_id):
+            course = Course.get_course(course_id)
+            course.average_student_of_course()
+        else:
+            print("course doesn't exist!")

@@ -1,4 +1,4 @@
-from course import Course
+from courses import Course
 
 
 class Student:
@@ -12,6 +12,20 @@ class Student:
         self.courses = list()
         self.course_score = dict()  # useful for set score each course and calculate average
         Student.all_student.append(self)
+
+    @staticmethod
+    def delete_courses_student_for_registeration(course):
+        for student in Student.all_student:
+            if course in student.courses:
+                student.courses.remove(course)
+                del student.course_score[course]
+
+    @staticmethod
+    def check_unit_of_student():
+        for student in Student.all_student:
+            if student.unit < 12:
+                Course.delete_student_from_course(student)  # delete from some courses that he has them
+                Student.all_student.remove(student)
 
     @staticmethod
     def get_student(student_id):
@@ -41,7 +55,7 @@ class Student:
                 self.number_of_delete_unit -= course.unit
                 course.capacity += 1
                 course.number_of_registerations -= 1
-                del course.student[self]
+                del course.students[self]
                 print(f"your course with ID:{course.courseID} deleted successfully!")
         else:
             print("Sorry! you can't delete any courses from now on!")

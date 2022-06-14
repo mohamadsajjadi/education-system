@@ -1,14 +1,16 @@
-from course import Course
-from student import Student
-
-
 class Lecturer:
     all_lecturer = []
 
     def __init__(self, lecturerID, *courses):
         self.lecturerID = lecturerID
-        self.courses = courses
+        self.courses = list(courses)
         Lecturer.all_lecturer.append(self)
+
+    @staticmethod
+    def delete_courses_student_for_registeration(course):
+        for lecturer in Lecturer.all_lecturer:
+            if course in lecturer.courses:
+                lecturer.courses.remove(course)
 
     @staticmethod
     def get_lecturer(lecturer_id):
@@ -18,6 +20,7 @@ class Lecturer:
         return None
 
     def increase_capacity_of_course(self, course, number):
+        from courses import Course
         if Course.check_course_exist(course.courseID) is not None:
             if course in self.courses:  # This course should belong to this teacher
                 course.capacity += number
@@ -64,12 +67,14 @@ class Lecturer:
             print("this course don't belong to this lecturer")
         else:
             for item in score_list:
+                from students import Student
                 student = Student.get_student(int(item[0]))
                 score = float(item[1])
                 student.course_score.update({course: score})
                 course.students.update({student: score})
 
     def set_same_mark_for_all(self, course, mark):
+        from students import Student
         for student in Student.all_student:
             if course in student.courses:
                 student.course_score.update({course: mark})

@@ -1,3 +1,7 @@
+# from students import Student
+from lecturers import Lecturer
+
+
 class Course:
     all_course = []
 
@@ -23,6 +27,21 @@ class Course:
             if course.courseID == course_id:
                 return True
         return False
+
+    @staticmethod
+    def delete_student_from_course(student):
+        for course in Course.all_course:
+            if student in course.students:
+                del course.students[student]
+
+    @staticmethod
+    def delete_course_for_registeration():
+        for course in Course.all_course:
+            if course.number_of_registerations < 3:
+                from students import Student
+                Student.delete_courses_student_for_registeration(course)  # delete this course from student's courses
+                Lecturer.delete_courses_student_for_registeration(course)  # delete this course from its lecturer
+                Course.all_course.remove(course)
 
     @staticmethod
     def show_all_course():

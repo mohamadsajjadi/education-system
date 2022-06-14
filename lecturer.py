@@ -37,8 +37,11 @@ class Lecturer:
 
     @staticmethod
     def show_all_lecturer():
-        for lecturer in Lecturer.all_lecturer:
-            print(lecturer.lecturerID)
+        if len(Lecturer.all_lecturer) == 0:
+            print(Lecturer.all_lecturer)
+        else:
+            for lecturer in Lecturer.all_lecturer:
+                print(lecturer.lecturerID)
 
     @staticmethod
     def check_another_lecturer_present_course(course):

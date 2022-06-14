@@ -45,7 +45,7 @@ while True:
             course = Course(courseID=course_id, unit=course_unit)
             print(f'This course with courseID: {course_id} registered successfully')
 
-    elif command[1] == 'register':
+    elif len(command) > 2 and command[1] == 'register':
         try:
             student_id = int(command[0])
             courses_id = command[2:]
@@ -68,7 +68,7 @@ while True:
         except Exception as e:
             print(e)
 
-    elif command[1] == 'capacitate':
+    elif len(command) == 4 and command[1] == 'capacitate':
         try:
             lecturer_id = int(command[0])
             course_id = int(command[2])
@@ -79,7 +79,7 @@ while True:
         except Exception as e:
             print(e)
 
-    elif command[1] == 'mark' and command[4] != '-all':
+    elif len(command) > 3 and command[4] != '-all' and command[1] == 'mark':
         # course = None
         # lecturer = None
         lecturer_id = int(command[0])
@@ -115,7 +115,7 @@ while True:
                 print(f"this student with ID={student_id} doesn't exist!")
         lecturer.set_different_mark(course, *valid_student)
 
-    elif command[1] == 'mark' and command[4] == '-all':
+    elif len(command) == 5 and command[4] == '-all' and command[1] == 'mark':
         lecturer_id = int(command[0])
         course_id = int(command[2])
         mark = float(command[3])
@@ -149,7 +149,7 @@ while True:
     elif command[0] == 'showAllLecturer':
         Lecturer.show_all_lecturer()
 
-    elif command[0] == 'showAllCourse':
+    elif command[0] == 'showAllCourse' and len(command) == 1:
         Course.show_all_course()
 
     # for show all related course to desired lecturer

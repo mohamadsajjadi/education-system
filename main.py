@@ -48,10 +48,13 @@ while True:
     elif command[1] == 'register':
         try:
             student_id = int(command[0])
-            course_id = int(command[2])
+            courses_id = command[2:]
             student = Student.get_student(student_id)
-            course = Course.get_course(course_id)
-            student.register_course(course)
+            for courseid in courses_id:
+                if Course.check_course_exist(int(courseid)):
+                    course = Course.get_course(int(courseid))
+                    student.register_course(course)
+
         except Exception as e:
             print(e)
 
@@ -179,11 +182,11 @@ while True:
         else:
             print("course doesn't exist!")
 
-    elif command[0] == 'showAverage':
+    elif command[0] == 'showAverages':
         student_id = int(command[1])
         if Student.check_student_exist(student_id):
             student = Student.get_student(student_id)
-            student.calculate_average()
+            print(student.calculate_average())
         else:
             print("student doesn't exist!")
 
